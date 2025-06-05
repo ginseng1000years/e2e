@@ -74,5 +74,17 @@ Feature: Login and Search
 - `npm run test:headed` - Run tests in headed mode
 - `npm run test:timed` - Run tests and print total execution time
 
+## Environment Variables (.env)
+
+Sensitive data such as usernames and passwords should not be hardcoded in feature files or committed to version control. This framework uses a `.env` file to securely manage such environment variables.
+
+1. **Create a `.env` file in the project root:**
+   ```env
+   TEST_USERNAME=your_username_here
+   TEST_PASSWORD=your_password_here
+   ```
+2. **Do not commit `.env` to version control.** The `.env` file should be listed in your `.gitignore`.
+3. **How it works:** The framework automatically loads variables from `.env` at runtime using the `dotenv` package. These variables are accessible in your step definitions via `process.env.TEST_USERNAME` and `process.env.TEST_PASSWORD`.
+
 ## License
 MIT 
