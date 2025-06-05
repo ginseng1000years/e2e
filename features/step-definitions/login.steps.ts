@@ -16,8 +16,14 @@ Given('I launch the browser', async function () {
   searchPage = new SearchPage(page);
 });
 
-When('I login with username {string} and password {string}', async function (username, password) {
+When('I login with valid credentials', async function () {
   await loginPage.goto();
+  const username = process.env.TEST_USERNAME;
+  const password = process.env.TEST_PASSWORD;
+  if (!username || !password) {
+    throw new Error('Missing TEST_USERNAME or TEST_PASSWORD environment variables');
+  }
+  
   await loginPage.login(username, password);
 });
 

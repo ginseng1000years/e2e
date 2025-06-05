@@ -1,4 +1,7 @@
 import { After, Before } from '@cucumber/cucumber';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 Before(async function () {
   // Can add context init here if needed
