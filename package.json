@@ -1,0 +1,18 @@
+{
+  "name": "bdd-playwright-framework",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:headed": "cucumber-js --world-parameters '{\"headless\": false}'",
+    "test:timed": "ts-node timed-test.ts"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^9.0.0",
+    "playwright": "^1.44.0",
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  }
+}
