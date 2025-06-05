@@ -4,7 +4,9 @@
   "scripts": {
     "test": "cucumber-js",
     "test:headed": "cucumber-js --world-parameters '{\"headless\": false}'",
-    "test:timed": "ts-node timed-test.ts"
+    "test:timed": "ts-node timed-test.ts",
+    "generate-report": "node generate-cucumber-report.js",
+    "test:with-report": "npx cucumber-js --format json:./reports/cucumber-report.json && npm run generate-report"
   },
   "dependencies": {
     "@cucumber/cucumber": "^9.0.0",
@@ -14,6 +16,7 @@
     "typescript": "^5.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "multiple-cucumber-html-reporter": "^3.9.2"
   }
 }
