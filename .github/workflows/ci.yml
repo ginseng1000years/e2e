@@ -36,8 +36,9 @@ jobs:
           sed -i "s/TEST_USERNAME=.*/TEST_USERNAME=${{ secrets.TEST_USERNAME }}/" .env
           sed -i "s/TEST_PASSWORD=.*/TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}/" .env
 
-      - name: Print .env content
-        run: cat .env
+      - name: Print .env content (sensitive data hidden)
+        run: |
+          sed -e 's/TEST_USERNAME=.*/TEST_USERNAME=********/' -e 's/TEST_PASSWORD=.*/TEST_PASSWORD=********/' .env
 
       - name: Set up environment variables
         run: |
