@@ -2,12 +2,12 @@
   "name": "bdd-playwright-framework",
   "version": "1.0.0",
   "scripts": {
-    "test": "cucumber-js",
+    "test": "npm run clean:reports && npx cucumber-js --format json:./reports/cucumber-report.json",
     "test:headed": "cucumber-js --world-parameters '{\"headless\": false}'",
     "test:timed": "ts-node timed-test.ts",
     "generate-report": "node generate-cucumber-report.js",
     "clean:reports": "rimraf ./reports ./cucumber-html-report",
-    "test:with-report": "npm run clean:reports && npx cucumber-js --format json:./reports/cucumber-report.json && npm run generate-report"
+    "report": "npm run generate-report"
   },
   "dependencies": {
     "@cucumber/cucumber": "^9.0.0",
@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/node": "^20.0.0",
     "multiple-cucumber-html-reporter": "^3.9.2",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "@playwright/test": "^1.44.0"
   }
 }
