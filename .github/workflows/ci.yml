@@ -26,6 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        working-directory: .
 
       - name: Copy .env.example to .env
         run: cp .env.example .env
@@ -34,6 +35,9 @@ jobs:
         run: |
           sed -i "s/TEST_USERNAME=.*/TEST_USERNAME=${{ secrets.TEST_USERNAME }}/" .env
           sed -i "s/TEST_PASSWORD=.*/TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}/" .env
+
+      - name: Print .env content
+        run: cat .env
 
       - name: Set up environment variables
         run: |
