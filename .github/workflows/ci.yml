@@ -12,7 +12,7 @@ on:
       - main
       
 jobs:
-  test:
+  execute-e2e-tests:
     runs-on: ubuntu-latest
     environment: dev
 
@@ -55,9 +55,6 @@ jobs:
           sed -i "s|TEST_USERNAME=.*|TEST_USERNAME=${{ secrets.TEST_USERNAME }}|" .env
           sed -i "s|TEST_PASSWORD=.*|TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}|" .env
 
-      - name: Print .env content (all values)
-        run: cat .env
-
       - name: Set environment variables
         run: |
           echo "TEST_USERNAME=${{ secrets.TEST_USERNAME }}" >> $GITHUB_ENV
@@ -69,14 +66,8 @@ jobs:
       - name: Generate HTML report
         run: npm run report
 
-      - name: Upload Cucumber HTML report
-        uses: actions/upload-artifact@v4
-        with:
-          name: cucumber-html-report
-          path: cucumber-html-report/
-
   deploy-report:
-    needs: test
+    needs: execute-e2e-tests
     runs-on: ubuntu-latest
     permissions:
       pages: write
