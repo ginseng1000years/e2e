@@ -78,9 +78,7 @@ jobs:
     permissions:
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    environment: github-pages
     steps:
       - name: Download Cucumber HTML report
         uses: actions/download-artifact@v4
@@ -95,5 +93,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
       - name: Print report URL
-        run: echo "Report URL: ${{ steps.deployment.outputs.page_url }}"
+        run: 'echo "Report URL: ${{ steps.deployment.outputs.page_url }}"'
