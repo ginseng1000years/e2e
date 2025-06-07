@@ -1,13 +1,13 @@
 module.exports = {
     default: {
       require: [
-        'features/step-definitions/**/*.ts',
+        process.env.CUCUMBER_REQUIRE || 'features/step-definitions/**/*.ts',
         'support/**/*.ts'
       ],
       requireModule: ['ts-node/register'],
-      format: ['progress'],
-      paths: ['features/**/*.feature'],
-      parallel: 1
+      format: [process.env.CUCUMBER_FORMAT || 'progress'],
+      paths: [process.env.CUCUMBER_PATHS || 'features/**/*.feature'],
+      parallel: process.env.CUCUMBER_PARALLEL ? Number(process.env.CUCUMBER_PARALLEL) : 1
     }
   };
   
