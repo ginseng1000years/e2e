@@ -1,10 +1,17 @@
-import { After, Before, AfterStep } from '@cucumber/cucumber';
+import { After, BeforeAll, AfterStep } from '@cucumber/cucumber';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-Before(async function () {
-  // Can add context init here if needed
+BeforeAll(async function () {
+  // Validate required environment variables
+  const requiredEnvVars = ['TEST_USERNAME', 'TEST_PASSWORD'];
+  for (const varName of requiredEnvVars) {
+    if (!process.env[varName]) {
+      throw new Error(`Missing required environment variable: ${varName}`);
+    }
+  }
+  // Additional context initialization can be added here
 });
 
 AfterStep(async function ({ result }) {

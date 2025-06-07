@@ -8,6 +8,7 @@ class CustomWorld extends CucumberWorld {
 
   constructor(options: IWorldOptions) {
     super(options);
+    // Additional initialization can be added here
   }
 
   async launchBrowser() {
