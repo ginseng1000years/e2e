@@ -13,7 +13,7 @@ on:
       
 jobs:
   checkout-repo:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: dev
 
     steps:
@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
 
   setup-environment:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: dev
     needs: checkout-repo
 
@@ -54,7 +54,7 @@ jobs:
         run: npx playwright install --with-deps
 
   prepare-env-file:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: dev
     needs: checkout-repo
 
