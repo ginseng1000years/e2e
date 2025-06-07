@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  cucumber-playwright:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      TEST_USERNAME: ""
+      TEST_PASSWORD: ""
