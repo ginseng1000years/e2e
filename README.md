@@ -86,5 +86,41 @@ Sensitive data such as usernames and passwords should not be hardcoded in featur
 2. **Do not commit `.env` to version control.** The `.env` file should be listed in your `.gitignore`.
 3. **How it works:** The framework automatically loads variables from `.env` at runtime using the `dotenv` package. These variables are accessible in your step definitions via `process.env.TEST_USERNAME` and `process.env.TEST_PASSWORD`.
 
+## Docker Deployment
+
+This project supports running tests and serving reports using Docker. There are two main ways to deploy with Docker:
+
+### 1. Using the Root Dockerfile
+
+Build the Docker image:
+
+```bash
+docker build -t bdd-playwright-framework .
+```
+
+Run the container (this will execute the tests):
+
+```bash
+docker run --rm bdd-playwright-framework
+```
+
+### 2. Using Docker Compose with Deployment Dockerfile
+
+The `deployment/docker-compose.yml` file defines a service that builds from the `deployment/Dockerfile`. This setup runs tests, sets environment variables, and serves the test report on port 8080.
+
+To build and start the service:
+
+```bash
+docker-compose -f deployment/docker-compose.yml up --build --remove-orphans
+```
+
+The service exposes port `8080` on the host, which you can access to view the test report.
+
+### Notes
+
+- The deployment Dockerfile uses an entrypoint script (`deployment/entrypoint.sh`) to run tests and serve the report.
+- Environment variables for test credentials are set in the `docker-compose.yml` file but can be customized as needed.
+- Ensure Docker and Docker Compose are installed on your system before running these commands.
+
 ## License
-MIT 
+MIT
