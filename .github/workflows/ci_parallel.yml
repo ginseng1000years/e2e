@@ -1,4 +1,4 @@
-name: E2E Tests
+name: E2E Tests Parallel
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
       - main
       
 jobs:
-  execute-e2e-tests:
+  checkout-repo:
     runs-on: ubuntu-latest
     environment: dev
 
@@ -20,6 +20,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+  setup-environment:
+    runs-on: ubuntu-latest
+    environment: dev
+    needs: checkout-repo
+
+    steps:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -47,6 +53,12 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+  prepare-env-file:
+    runs-on: ubuntu-latest
+    environment: dev
+    needs: checkout-repo
+
+    steps:
       - name: Copy .env.example to .env
         run: cp .env.example .env
 
@@ -59,6 +71,16 @@ jobs:
         run: |
           echo "TEST_USERNAME=${{ secrets.TEST_USERNAME }}" >> $GITHUB_ENV
           echo "TEST_PASSWORD=${{ secrets.TEST_PASSWORD }}" >> $GITHUB_ENV
+
+  execute-e2e-tests:
+    runs-on: ubuntu-latest
+    environment: dev
+    needs: [setup-environment, prepare-env-file]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Run E2E tests
         run: npm test
 
