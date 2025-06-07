@@ -1,8 +1,20 @@
+import { setWorldConstructor, IWorldOptions, World as CucumberWorld } from '@cucumber/cucumber';
 import { Browser, BrowserContext, chromium, Page } from 'playwright';
 
-export async function customWorld() {
-  const browser: Browser = await chromium.launch();
-  const context: BrowserContext = await browser.newContext();
-  const page: Page = await context.newPage();
-  return { browser, context, page };
+class CustomWorld extends CucumberWorld {
+  browser: Browser | undefined;
+  context: BrowserContext | undefined;
+  page: Page | undefined;
+
+  constructor(options: IWorldOptions) {
+    super(options);
+  }
+
+  async launchBrowser() {
+    this.browser = await chromium.launch();
+    this.context = await this.browser.newContext();
+    this.page = await this.context.newPage();
+  }
 }
+
+setWorldConstructor(CustomWorld);
